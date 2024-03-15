@@ -9,30 +9,37 @@ import jakarta.persistence.Id;
 public class Visit {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int id;
-	private String petname;
-	private String petOwner;
-	private String visitDate;
-	private String reason;
-	public Visit() {}
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String petName;
+    private String ownerName;
+    private String visitDate;
+    private String reason;
+    public Visit() {}
+	public Visit(String petName, String ownerName, String visitDate, String reason) {
+		super();
+		this.petName = petName;
+		this.ownerName = ownerName;
+		this.visitDate = visitDate;
+		this.reason = reason;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getPetname() {
-		return petname;
+	public String getPetName() {
+		return petName;
 	}
-	public void setPetname(String petname) {
-		this.petname = petname;
+	public void setPetName(String petName) {
+		this.petName = petName;
 	}
-	public String getPetOwner() {
-		return petOwner;
+	public String getOwnerName() {
+		return ownerName;
 	}
-	public void setPetOwner(String petOwner) {
-		this.petOwner = petOwner;
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 	public String getVisitDate() {
 		return visitDate;
@@ -46,18 +53,10 @@ public class Visit {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	public Visit(String petname, String petOwner, String visitDate, String reason) {
-		super();
-		this.petname = petname;
-		this.petOwner = petOwner;
-		this.visitDate = visitDate;
-		this.reason = reason;
-	}
 	@Override
 	public String toString() {
-		return "PetsClinic [id=" + id + ", petname=" + petname + ", petOwner=" + petOwner + ", visitDate=" + visitDate
+		return "Visit [id=" + id + ", petName=" + petName + ", ownerName=" + ownerName + ", visitDate=" + visitDate
 				+ ", reason=" + reason + "]";
 	}
-	
-	
-} 
+    
+	}

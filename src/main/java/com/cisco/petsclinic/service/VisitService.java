@@ -7,8 +7,7 @@ import com.cisco.petsclinic.model.Visit;
 public interface VisitService {
 
 	List<Visit> getAllVisits();
-	Visit getVisitById(Integer id);
-	Visit addVisit(Visit visit);
-	void deleteVisitById(Integer id);
-	
+	Visit getVisitById(int id);
+	void addVisit(Visit visit);
+	void deleteVisitById(int id);
 } 

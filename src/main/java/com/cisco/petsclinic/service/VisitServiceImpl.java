@@ -12,30 +12,31 @@ import com.cisco.petsclinic.repo.VisitRepository;
 public class VisitServiceImpl implements VisitService{
 
 	@Autowired
-	private VisitRepository repository;
+    private VisitRepository visitRepository;
 
 	@Override
 	public List<Visit> getAllVisits() {
-		return repository.findAll();
+		return visitRepository.findAll();
 	}
 
 	@Override
-	public Visit getVisitById(Integer id) {
-		return repository.getById(id);
+	public Visit getVisitById(int id) {
+		return visitRepository.findById(id).orElse(null);
 	}
 
 	@Override
-	public Visit addVisit(Visit visit) {
+	public void addVisit(Visit visit) {
+		 visitRepository.save(visit);
 		
-		return repository.save(visit);
 	}
 
 	@Override
-	public void deleteVisitById(Integer id) {
+	public void deleteVisitById(int id) {
+		 visitRepository.deleteById(id);
+		
+	}
 	
-		repository.deleteById(id);
-		
-	}
+	
 	
 	
 } 

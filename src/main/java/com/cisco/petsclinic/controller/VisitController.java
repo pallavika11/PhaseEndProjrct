@@ -17,41 +17,42 @@ import com.cisco.petsclinic.model.Visit;
 import com.cisco.petsclinic.service.VisitService;
 
 @RestController
-@RequestMapping("/api/petclinic")
+@RequestMapping("/api/visits")
 public class VisitController {
-
+	
 	@Autowired
-	private VisitService service;
-	
-	@GetMapping
-	public ResponseEntity<List<Visit>> getAllVisits(){
-		return new ResponseEntity<List<Visit>>(service.getAllVisits(),HttpStatus.OK);
-	}
-	
-	@GetMapping("{id}")
-	public ResponseEntity<Object> getVisitById(@PathVariable Integer id){
-		Visit foundVisit = service.getVisitById(id);
-		if(foundVisit!=null)
-			return new ResponseEntity<Object>(foundVisit,HttpStatus.OK);
-		else 
-			return new ResponseEntity<Object>("No Visit found with Id" +id,HttpStatus.NOT_FOUND);
-	}
-	
-	@PostMapping
-	public ResponseEntity<Object> addVisit(@RequestBody Visit visit){
-		Visit createdVisit = service.addVisit(visit);
-		//(createdVisit!=null)
-			return new ResponseEntity<Object>(createdVisit,HttpStatus.OK);
-		
-	}
-	
-	@DeleteMapping("{id}")
-	public ResponseEntity<Object> deleteVisitById(@PathVariable Integer id){
-		if(service.getVisitById(id)!=null) {
-			service.deleteVisitById(id);
-			return new ResponseEntity<Object>("Visit Deleted with Id "+id,HttpStatus.OK);
-		}else
-			return new ResponseEntity<Object>("No Visit found to delete with ID "+id,HttpStatus.NOT_FOUND);
-	}
-	
+    private VisitService visitService;
+
+    @PostMapping
+    public ResponseEntity<Void> addVisit(@RequestBody Visit visit) {
+        visitService.addVisit(visit);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Visit>> getAllVisits() {
+        List<Visit> visits = visitService.getAllVisits();
+        return new ResponseEntity<>(visits, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Visit> getVisitById(@PathVariable int id) {
+        Visit visit = visitService.getVisitById(id);
+        if (visit != null) {
+            return new ResponseEntity<>(visit, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteVisitById(@PathVariable int id) {
+        Visit existingVisit = visitService.getVisitById(id);
+        if (existingVisit != null) {
+            visitService.deleteVisitById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 } 
